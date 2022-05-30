@@ -111,28 +111,28 @@ class TetheredDriveApp(Tk):
             print ("Reconnect")
             return None
 
-    # get8Unsigned returns an 8-bit unsigned value.
+   
     def get8Unsigned(user):
         return getDecodedBytes(1, "B")
 
-    # get8Signed returns an 8-bit signed value.
+  
     def get8Signed(user):
         return getDecodedBytes(1, "b")
 
-    # get16Unsigned returns a 16-bit unsigned value.
+    
     def get16Unsigned(user):
         return getDecodedBytes(2, ">H")
 
-    # get16Signed returns a 16-bit signed value.
+   
     def get16Signed(user):
         return getDecodedBytes(2, ">h")
 
-    # A handler for keyboard events. Feel free to add more!
+   
     def callbackKey(user, event):
         k = event.keysym.upper()
         delta = False
 
-        if event.type == '2': # KeyPress; need to figure out how to get constant
+        if event.type == '2': 
             if k == 'E':   # Passive
                 user.sendCommandASCII('128')
             elif k == 'Q': # Safe
@@ -161,7 +161,7 @@ class TetheredDriveApp(Tk):
                 delta = True
             else:
                 print (repr(k))
-        elif event.type == '3': # KeyRelease; need to figure out how to get constant
+        elif event.type == '3': 
             if k == 'W':
                 user.callbackKeyUp = False
                 delta = True
@@ -183,11 +183,11 @@ class TetheredDriveApp(Tk):
             rotation += ROTATIONCHANGE if user.callbackKeyLeft is True else 0
             rotation -= ROTATIONCHANGE if user.callbackKeyRight is True else 0
 
-            # compute left and right wheel velocities
+          
             vr = velocity + (rotation/2)
             vl = velocity - (rotation/2)
 
-            # create drive command
+           
             cmd = struct.pack(">Bhh", 145, vr, vl)
             if cmd != user.callbackKeyLastDriveCommand:
                 user.sendCommandRaw(cmd)
